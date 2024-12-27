@@ -1,0 +1,29 @@
+1. Sistema de Gerenciamento de Tarefas
+Descrição:
+Um sistema onde os usuários podem cadastrar, visualizar, editar e excluir tarefas. As tarefas podem ser categorizadas (ex.: trabalho, pessoal) e possuem status (pendente, em andamento, concluído).
+
+- Requisitos do sistema:
+- Cadastro de usuários com autenticação (login e senha). ************************
+
+
+- CRUD (Criar, Ler, Atualizar e Deletar) de tarefas.
+- Filtro de tarefas por categoria e status.
+- Interface amigável usando JavaScript (ex.: atualizar status sem recarregar a página).
+- Utilizar MySQL para armazenar usuários e tarefas.
+- Funcionalidades principais:
+- Cadastro de usuários:
+- Campos: Nome, E-mail, Senha (criptografada).
+- Validação de e-mail único.
+- Login/Logout:
+- Sessão para autenticar o usuário.
+- Gerenciamento de tarefas:
+- Criar tarefa: título, descrição, categoria, status e prazo.
+- Editar tarefa.
+- Excluir tarefa.
+- Marcar como "Concluído".
+- Filtros:
+- Filtrar tarefas por categoria ou status via AJAX.
+- Tecnologias:
+- PHP: Backend e APIs RESTful.
+- JavaScript: Interação e requisições AJAX.
+- MySQL: Banco de dados para armazenar usuários e tarefas.
