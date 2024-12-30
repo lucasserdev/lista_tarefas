@@ -2,10 +2,6 @@
 
 class User {
 
-    private $id;
-    private $nome;
-    private $email;
-    private $senha;
     private $pdo;
 
     public function __construct(Database $driver) {

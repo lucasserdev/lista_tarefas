@@ -41,8 +41,26 @@ class Tarefa {
         }
     }
 
-    public function edit($id) {
-        
+    public function getStatus($id) {
+        $sql = $this->pdo->prepare("SELECT * FROM tarefas WHERE id = ?");
+        $sql->execute([$id]);
+
+        if($sql->rowCount() > 0) {
+            $data = $sql->fetch( PDO::FETCH_ASSOC );
+            return $data;
+        } else {
+            return false;
+        }
+    }
+
+    public function editStatus($status, $id) {
+        $sql = $this->pdo->prepare("UPDATE tarefas set status = ? WHERE id = ?");
+        $sql->execute([$status, $id]);
+    }
+
+    public function edit($corpo, $id) {
+        $sql = $this->pdo->prepare("UPDATE tarefas SET corpo = ? WHERE id = ?");
+        $sql->execute([$corpo, $id]);
     }
 
     public function del($id) {

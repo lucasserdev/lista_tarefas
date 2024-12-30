@@ -22,14 +22,20 @@ $db = new Database();
 $user = new User($db);
 $tarefa = new Tarefa($db);
 
+$teste = $user->findById($userId);
+
 $getUser = $user->findById($userId);
 $getTarefa = $tarefa->findByUserId($userId);
 
 ?>
 
 <?php require '../views/includes/header.php'; ?>
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="assets/js/script.js" defer async></script>
+<script src="https://kit.fontawesome.com/468f44bb2c.js" crossorigin="anonymous"></script>
 
-<h3>Seja bem vindo <?= $getUser['nome']; ?></h3>
+<h3>Seja bem vindo <?= trim(ucfirst($getUser['nome'])); ?></h3>
+
 
 <a href="../controllers/exit.php">Sair</a>
 
@@ -52,12 +58,33 @@ $getTarefa = $tarefa->findByUserId($userId);
 
 <?php if($getTarefa): ?>
     <?php foreach($getTarefa as $atv): ?>
-        <div class="posts" style="padding: 10px; box-shadow: 1px 1px 1px 1px black; margin-bottom: 5px">
-            <span><?= $atv['status']; ?></span>
-            <span><?= $atv['corpo']; ?></span>
+        <div class="posts" style="display: flex; justify-content: space-between; padding: 10px; box-shadow: 1px 1px 1px 1px black; margin-bottom: 5px;">
             <span>
-                <a href="../controllers/editTarefaAction.php?id=<?= $atv['id']; ?>">[ editar ]</a>
-                <a href="../controllers/delTarefaAction.php?id=<?= $atv['id']; ?>" onclick="return confirm('Deseja exluir?'); ">[ excluir ]</a>
+                <?php if($atv['status'] === 'pendente'): ?>
+                    <a href="../controllers/statusAction.php?id=<?= $atv['id']; ?>">
+                        <i style="cursor: pointer;" class="fa-regular fa-square"></i>
+                    </a>
+                <?php elseif($atv['status'] === 'concluido'): ?>
+                    <a href="../controllers/statusAction.php?id=<?= $atv['id']; ?>">
+                        <i style="cursor: pointer;" class="fa-solid fa-square-check"></i>
+                    </a>
+                <?php endif; ?>
+            </span>
+            <span style="display: flex;">
+                <span id="corpo_<?= $atv['id']; ?>"><?= $atv['corpo']; ?></span>
+                <form class="inputCorpo" action="../controllers/editTarefaAction.php?id=<?= $atv['id']; ?>" method="post" id="inputCorpo_<?= $atv['id']; ?>">
+                    <input style="outline: 0; border: none; border-bottom: 1px solid black; padding: 5px;" type="text" name="edit_corpo" value="<?= $atv['corpo']; ?>">
+
+                    <input type="submit" value="Enviar">
+                </form>
+            </span>
+            <span>
+                <a href="#" data-id="<?= $atv['id']; ?>" class="edit" style="margin-right: 5px;">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </a>
+                <a href="../controllers/delTarefaAction.php?id=<?= $atv['id']; ?>" onclick="return confirm('Deseja exluir?'); ">
+                    <i class="fa-solid fa-trash"></i>
+                </a>
             </span>
         </div>
     <?php endforeach; ?>
